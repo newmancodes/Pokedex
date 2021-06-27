@@ -1,4 +1,4 @@
-﻿namespace Pokedex.Application
+﻿namespace Pokedex.Domain
 {
     public class Result<T>
     {

@@ -101,6 +101,20 @@ namespace Pokedex.Api.Tests
         }
 
         [Fact]
+        public async Task An_Unknown_Pokemon_Can_Not_Be_Translated()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+            
+            // Act
+            var result = await client.GetAsync("/pokemon/translated/some_unknown_pokemon");
+            
+            // Assert
+            result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        }
+
+        [Fact]
         public async Task A_Legendary_Pokemon_Is_Described_By_Yoda()
         {
             // Arrange

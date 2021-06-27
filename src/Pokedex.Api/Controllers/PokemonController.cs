@@ -29,7 +29,21 @@ namespace Pokedex.Api.Controllers
                 return NotFound();
             }
             
-            return Ok(new Pokemon(findResult.Value.Name, findResult.Value.Description, findResult.Value.Habitat, findResult.Value.IsLegendary));
+            return Ok(new Pokemon(findResult.Value));
+        }
+
+        [HttpGet("translated/{name}")]
+        public async Task<IActionResult> GetTranslated([FromRoute]string name, CancellationToken cancellationToken)
+        {
+            var translateNamedPokemonContext = new TranslateNamedPokemonQuery(name);
+            var translationResult = await this.mediator.Send(translateNamedPokemonContext, cancellationToken);
+
+            if (!translationResult.WasSuccessful)
+            {
+                return NotFound();
+            }
+            
+            return Ok(new Pokemon(translationResult.Value));
         }
     }
 }

@@ -10,6 +10,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Pokedex.Application;
 using Pokedex.Domain;
+using Pokedex.Domain.Translation;
 using Pokedex.Infrastructure.PokeApi;
 using Polly;
 using Polly.Extensions.Http;
@@ -31,6 +32,7 @@ namespace Pokedex.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ITranslationStrategyFactory<Pokemon>, PokemonTranslationStrategyFactory>();
             services.AddScoped<IPokemonLookupService, PokemonLookupService>();
             
             services.AddOpenTelemetryTracing(builder =>
