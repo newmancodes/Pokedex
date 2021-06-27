@@ -1,0 +1,16 @@
+{
+    "request": {
+        "url": "/translate/yoda/",
+        "method": "POST",
+        "bodyPatterns": [{
+            "equalToJson": "{\"text\":\"Forms colonies in\\nperpetually dark\\nplaces. Uses\\fultrasonic waves\\nto identify and\\napproach targets.\"}"
+        }]
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "translate/yoda/zubat.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

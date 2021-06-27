@@ -1,5 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using Pokedex.Domain.Translation;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace Pokedex.Domain.Tests.Translation
         {
             // Arrange
             var legendaryPokemon = new Pokemon("some_name", "some_description", "some_habitat", true);
-            var sut = new PokemonTranslationStrategyFactory();
+            var sut = new PokemonTranslationStrategyFactory(Substitute.For<ITranslationService>(), Substitute.For<ILoggerFactory>());
 
             // Act
             var translationStrategy = sut.For(legendaryPokemon);
@@ -28,7 +29,7 @@ namespace Pokedex.Domain.Tests.Translation
         {
             // Arrange
             var legendaryPokemon = new Pokemon("some_name", "some_description", habitat, false);
-            var sut = new PokemonTranslationStrategyFactory();
+            var sut = new PokemonTranslationStrategyFactory(Substitute.For<ITranslationService>(), Substitute.For<ILoggerFactory>());
 
             // Act
             var translationStrategy = sut.For(legendaryPokemon);
@@ -42,7 +43,7 @@ namespace Pokedex.Domain.Tests.Translation
         {
             // Arrange
             var legendaryPokemon = new Pokemon("some_name", "some_description", "some_habitat", false);
-            var sut = new PokemonTranslationStrategyFactory();
+            var sut = new PokemonTranslationStrategyFactory(Substitute.For<ITranslationService>(), Substitute.For<ILoggerFactory>());
 
             // Act
             var translationStrategy = sut.For(legendaryPokemon);

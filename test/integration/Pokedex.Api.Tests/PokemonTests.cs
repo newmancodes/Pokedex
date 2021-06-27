@@ -18,9 +18,10 @@ namespace Pokedex.Api.Tests
                 builder.ConfigureAppConfiguration((context, configBuilder) =>
                 {
                     configBuilder.AddInMemoryCollection(
-                        new Dictionary<string, string>()
+                        new Dictionary<string, string>
                         {
-                            { "PokeApi:BaseAddress", "http://localhost:8080/" }
+                            { "PokeApi:BaseAddress", "http://localhost:8080/" },
+                            { "FunTranslation:BaseAddress", "http://localhost:8080/" },
                         });
                 });
             });
@@ -131,6 +132,46 @@ namespace Pokedex.Api.Tests
                 "Created by\na scientist after\nyears of horrific\fgene splicing and\ndna engineering\nexperiments, it was.",
                 "rare",
                 true);
+            result.Should().BeEquivalentTo(expectedPokemon);
+        }
+
+        [Fact]
+        public async Task A_Cave_Dwelling_Pokemon_Is_Described_By_Yoda()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+
+            // Act
+            var result = await client.GetFromJsonAsync<Models.Pokemon>("/pokemon/translated/zubat");
+
+            // Assert
+            result.Should().NotBeNull();
+            var expectedPokemon = new Models.Pokemon(
+                "zubat",
+                "Forms colonies in\nperpetually dark\nplaces.And\napproach targets, uses\fultrasonic waves\nto identify.",
+                "cave",
+                false);
+            result.Should().BeEquivalentTo(expectedPokemon);
+        }
+
+        [Fact]
+        public async Task A_Basic_Dwelling_Pokemon_Is_Described_By_Shakespeare()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+
+            // Act
+            var result = await client.GetFromJsonAsync<Models.Pokemon>("/pokemon/translated/squirtle");
+
+            // Assert
+            result.Should().NotBeNull();
+            var expectedPokemon = new Models.Pokemon(
+                "squirtle",
+                "Shoots water at\nprey while in the\nwater.\fwithdraws into\nits shell at which hour in\ndanger.",
+                "waters-edge",
+                false);
             result.Should().BeEquivalentTo(expectedPokemon);
         }
     }

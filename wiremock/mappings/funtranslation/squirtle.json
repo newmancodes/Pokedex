@@ -1,0 +1,16 @@
+{
+    "request": {
+        "url": "/translate/shakespeare/",
+        "method": "POST",
+        "bodyPatterns": [{
+            "equalToJson": "{\"text\":\"Shoots water at\\nprey while in the\\nwater.\\fWithdraws into\\nits shell when in\\ndanger.\"}"
+        }]
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "translate/shakespeare/squirtle.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

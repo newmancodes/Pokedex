@@ -1,0 +1,16 @@
+{
+    "request": {
+        "url": "/translate/yoda/",
+        "method": "POST",
+        "bodyPatterns": [{
+            "equalToJson": "{\"text\":\"It was created by\\na scientist after\\nyears of horrific\\fgene splicing and\\nDNA engineering\\nexperiments.\"}"
+        }]
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "translate/yoda/mewtwo.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
