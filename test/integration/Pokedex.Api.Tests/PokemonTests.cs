@@ -99,5 +99,25 @@ namespace Pokedex.Api.Tests
                 false);
             result.Should().BeEquivalentTo(expectedPokemon);
         }
+
+        [Fact]
+        public async Task A_Legendary_Pokemon_Is_Described_By_Yoda()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+
+            // Act
+            var result = await client.GetFromJsonAsync<Models.Pokemon>("/pokemon/translated/mewtwo");
+
+            // Assert
+            result.Should().NotBeNull();
+            var expectedPokemon = new Models.Pokemon(
+                "mewtwo",
+                "Created by\na scientist after\nyears of horrific\fgene splicing and\ndna engineering\nexperiments, it was.",
+                "rare",
+                true);
+            result.Should().BeEquivalentTo(expectedPokemon);
+        }
     }
 }
