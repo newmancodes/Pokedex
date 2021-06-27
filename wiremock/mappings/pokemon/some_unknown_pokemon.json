@@ -1,0 +1,9 @@
+{
+    "request": {
+        "url": "/api/v2/pokemon-species/some_unknown_pokemon/",
+        "method": "GET"
+    },
+    "response": {
+        "status": 404
+    }
+}

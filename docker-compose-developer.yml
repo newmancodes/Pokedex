@@ -16,3 +16,15 @@ services:
       - 16686:16686
     networks:
       - pokedex
+
+  wiremock:
+    image: rodolpheche/wiremock:2.28.1
+
+    container_name: wiremock
+    volumes:
+      - ./wiremock/__files:/home/wiremock/__files
+      - ./wiremock/mappings:/home/wiremock/mappings
+    ports:
+      - 8080:8080
+    networks:
+      - pokedex
