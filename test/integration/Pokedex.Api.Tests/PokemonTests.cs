@@ -59,5 +59,45 @@ namespace Pokedex.Api.Tests
                 false);
             result.Should().BeEquivalentTo(expectedPokemon);
         }
+
+        [Fact]
+        public async Task A_Legendary_Pokemon_IsFound()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+
+            // Act
+            var result = await client.GetFromJsonAsync<Models.Pokemon>("/pokemon/mewtwo");
+
+            // Assert
+            result.Should().NotBeNull();
+            var expectedPokemon = new Models.Pokemon(
+                "mewtwo",
+                "It was created by\na scientist after\nyears of horrific\fgene splicing and\nDNA engineering\nexperiments.",
+                "rare",
+                true);
+            result.Should().BeEquivalentTo(expectedPokemon);
+        }
+
+        [Fact]
+        public async Task Handle_Potentially_Missing_Pokemon_Properties()
+        {
+            // Arrange
+            using var factory = GetConfiguredFactory();
+            using var client = factory.CreateClient();
+
+            // Act
+            var result = await client.GetFromJsonAsync<Models.Pokemon>("/pokemon/some_minimal_pokemon");
+
+            // Assert
+            result.Should().NotBeNull();
+            var expectedPokemon = new Models.Pokemon(
+                "some_minimal_pokemon",
+                null,
+                null,
+                false);
+            result.Should().BeEquivalentTo(expectedPokemon);
+        }
     }
 }

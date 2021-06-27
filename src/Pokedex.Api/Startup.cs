@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,10 @@ using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Pokedex.Application;
+using Pokedex.Domain;
+using Pokedex.Infrastructure.PokeApi;
+using Polly;
+using Polly.Extensions.Http;
 
 namespace Pokedex.Api
 {
@@ -26,6 +31,8 @@ namespace Pokedex.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPokemonLookupService, PokemonLookupService>();
+            
             services.AddOpenTelemetryTracing(builder =>
             {
                 builder
@@ -40,6 +47,17 @@ namespace Pokedex.Api
 
                 builder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Pokedex.Api"));
             });
+
+            var retryPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(retryAttempt * 200)); // exponential back off would be better, consider circuit breaker
+
+            services
+                .AddHttpClient("pokeapi", c => 
+                {
+                    c.BaseAddress = new Uri(Configuration.GetValue<string>("PokeApi:BaseAddress"));
+                })
+                .AddPolicyHandler(retryPolicy);
 
             services.AddMediatR(typeof(ActivityBehaviour<,>).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ActivityBehaviour<,>));
