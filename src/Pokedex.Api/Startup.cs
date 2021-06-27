@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Pokedex.Application;
 
 namespace Pokedex.Api
 {
@@ -46,6 +41,8 @@ namespace Pokedex.Api
                 builder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Pokedex.Api"));
             });
 
+            services.AddMediatR(typeof(ActivityBehaviour<,>).Assembly);
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ActivityBehaviour<,>));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
