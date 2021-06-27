@@ -42,7 +42,10 @@ namespace Pokedex.Api
                 builder
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddJaegerExporter(); // Use OLTP exporter preferably. 
+                    .AddJaegerExporter(options =>
+                    {
+                        options.AgentHost = Configuration.GetValue<string>("Jaeger:AgentHost");
+                    }); // Use OLTP exporter preferably. 
 
                 if (this.environment.IsDevelopment())
                 {

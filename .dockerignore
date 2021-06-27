@@ -1,0 +1,7 @@
+.git
+.gitignore
+.idea
+*.user
+**/bin/
+**/obj/
+**/out/

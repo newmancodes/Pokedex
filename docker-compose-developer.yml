@@ -1,6 +1,6 @@
 networks:
-  pokedex:
-    name: pokedex-network
+  pokedex-developer:
+    name: pokedex-developer-network
         
 services:
   jaeger:
@@ -15,7 +15,7 @@ services:
       - 14268:14268
       - 16686:16686
     networks:
-      - pokedex
+      - pokedex-developer
 
   wiremock:
     image: rodolpheche/wiremock:2.28.1
@@ -27,4 +27,4 @@ services:
     ports:
       - 8080:8080
     networks:
-      - pokedex
+      - pokedex-developer
