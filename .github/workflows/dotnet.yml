@@ -27,3 +27,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Close docker environment
       run: docker-compose -f ./docker-compose-developer.yml down
+    - name: Build real environment
+      run: docker-compose -f ./docker-compose.yml up -d
+    - name: Close real environment
+      run: docker-compose -f ./docker-compose.yml down
