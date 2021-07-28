@@ -28,7 +28,7 @@ namespace Pokedex.Api.LoadTest
                 .CreateScenario("fetch_squirtle_information", step)
                 .WithWarmUpDuration(TimeSpan.FromSeconds(10))
                 .WithLoadSimulations(
-                    Simulation.RampConstant(50, TimeSpan.FromSeconds(30)),
+                    Simulation.RampConstant(25, TimeSpan.FromSeconds(30)),
                     Simulation.RampPerSec(5, TimeSpan.FromSeconds(30)));
 
             // Act
@@ -59,7 +59,7 @@ namespace Pokedex.Api.LoadTest
                 .CreateScenario("fetch_translated_squirtle_information", step)
                 .WithWarmUpDuration(TimeSpan.FromSeconds(10))
                 .WithLoadSimulations(
-                    Simulation.RampConstant(50, TimeSpan.FromSeconds(30)),
+                    Simulation.RampConstant(25, TimeSpan.FromSeconds(30)),
                     Simulation.RampPerSec(5, TimeSpan.FromSeconds(30)));
 
             // Act
