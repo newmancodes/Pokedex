@@ -45,7 +45,7 @@ namespace Pokedex.Api.LoadTest
         {
             // Arrange
             var step = Step.Create(
-                "fetch_squirtle_information",
+                "fetch_translated_squirtle_information",
                 HttpClientFactory.Create(),
                 context =>
                 {
@@ -56,7 +56,7 @@ namespace Pokedex.Api.LoadTest
                 timeout: TimeSpan.FromSeconds(2));
 
             var scenario = ScenarioBuilder
-                .CreateScenario("fetch_squirtle_information", step)
+                .CreateScenario("fetch_translated_squirtle_information", step)
                 .WithWarmUpDuration(TimeSpan.FromSeconds(10))
                 .WithLoadSimulations(
                     Simulation.RampConstant(100, TimeSpan.FromSeconds(30)),
