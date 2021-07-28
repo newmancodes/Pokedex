@@ -45,7 +45,7 @@ namespace Pokedex.Api
                     .AddJaegerExporter(options =>
                     {
                         options.AgentHost = Configuration.GetValue<string>("Jaeger:AgentHost");
-                    }); // Use OLTP exporter preferably. 
+                    }); // Use OTLP exporter preferably. 
 
                 if (this.environment.IsDevelopment())
                 {
