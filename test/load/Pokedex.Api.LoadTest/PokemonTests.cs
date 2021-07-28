@@ -21,7 +21,8 @@ namespace Pokedex.Api.LoadTest
                     var request = Http.CreateRequest("GET", "http://localhost:5000/pokemon/squirtle");
 
                     return Http.Send(request, context);
-                });
+                },
+                timeout: TimeSpan.FromSeconds(2));
 
             var scenario = ScenarioBuilder
                 .CreateScenario("fetch_squirtle_information", step)
