@@ -34,6 +34,7 @@ namespace Pokedex.Api.LoadTest
             var stats = NBomberRunner.RegisterScenarios(scenario).Run();
 
             // Assert
+            stats.ScenarioStats[0].StepStats[0].Fail.Request.Count.Should().Be(0);
             stats.ScenarioStats[0].StepStats[0].Ok.Latency.Percent95.Should().BeLessOrEqualTo(750);
         }
     }

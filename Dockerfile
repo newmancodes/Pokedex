@@ -10,6 +10,7 @@ COPY ./src/Pokedex.Domain/Pokedex.Domain.csproj ./src/Pokedex.Domain/Pokedex.Dom
 COPY ./src/Pokedex.Infrastructure.FunTranslation/Pokedex.Infrastructure.FunTranslation.csproj ./src/Pokedex.Infrastructure.FunTranslation/Pokedex.Infrastructure.FunTranslation.csproj
 COPY ./src/Pokedex.Infrastructure.PokeApi/Pokedex.Infrastructure.PokeApi.csproj ./src/Pokedex.Infrastructure.PokeApi/Pokedex.Infrastructure.PokeApi.csproj
 COPY ./test/integration/Pokedex.Api.Tests/Pokedex.Api.Tests.csproj ./test/integration/Pokedex.Api.Tests/Pokedex.Api.Tests.csproj
+COPY ./test/load/Pokedex.Api.LoadTest/Pokedex.Api.LoadTest.csproj ./test/load/Pokedex.Api.LoadTest/Pokedex.Api.LoadTest.csproj
 COPY ./test/unit/Pokedex.Application.Tests/Pokedex.Application.Tests.csproj ./test/unit/Pokedex.Application.Tests/Pokedex.Application.Tests.csproj
 COPY ./test/unit/Pokedex.Domain.Tests/Pokedex.Domain.Tests.csproj ./test/unit/Pokedex.Domain.Tests/Pokedex.Domain.Tests.csproj
 RUN dotnet restore
