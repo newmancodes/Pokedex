@@ -22,7 +22,7 @@ namespace Pokedex.Api.LoadTest
 
                     return Http.Send(request, context);
                 },
-                timeout: TimeSpan.FromSeconds(2));
+                timeout: TimeSpan.FromSeconds(4));
 
             var scenario = ScenarioBuilder
                 .CreateScenario("fetch_squirtle_information", step)
@@ -53,7 +53,7 @@ namespace Pokedex.Api.LoadTest
 
                     return Http.Send(request, context);
                 },
-                timeout: TimeSpan.FromSeconds(2));
+                timeout: TimeSpan.FromSeconds(4));
 
             var scenario = ScenarioBuilder
                 .CreateScenario("fetch_translated_squirtle_information", step)
