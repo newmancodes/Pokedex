@@ -24,9 +24,15 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --filter "Category!=LoadTest"
     - name: Close docker environment
       run: docker-compose -f ./docker-compose-developer.yml down
+    - name: Build load test environment
+      run: docker-compose -f ./docker-compose-loadtest.yml up -d
+    - name: Execute load tests
+      run: dotnet test -c Release --verbosity normal --filter "Category=LoadTest"
+    - name: Close load test environment
+      run: docker-compose -f ./docker-compose-loadtest.yml down
     - name: Build real environment
       run: docker-compose -f ./docker-compose.yml up -d
     - name: Close real environment
